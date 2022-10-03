@@ -1,8 +1,4 @@
-from ast import Delete
-from email.mime import application
-from http.client import NOT_MODIFIED
 from tkinter import CASCADE
-from unittest.util import _MAX_LENGTH
 from django.db import models
 
 # Create your models here.
@@ -12,11 +8,6 @@ ROLE_CHOICES = [
     (DESIGNER, 'Designer'),
     (DEVELOPER, 'Developer'),        
 ]
-
-
-
-
-
 
 class Recruitment_season(models.Model):   
     year = models.IntegerField(max_length=4, primary_key=True)
@@ -49,9 +40,7 @@ class Applicant(models.Model):
     cg = models.FloatField()
     round_id = models.ForeignKey(Rounds, on_delete=CASCADE, related_name='id')
     # called = models.BooleanField(default=False)
-    
-    
-
+   
 class IMG_member(models.Model):   
     enrollment_no = models.IntegerField(max_length=8, primary_key=True) 
     name = models.TextField()
@@ -59,8 +48,6 @@ class IMG_member(models.Model):
     mob = models.PositiveIntegerField(max_length=10)
     role = models.CharField(max_length=3, choices=ROLE_CHOICES, default=DEVELOPER)
     year = models.IntegerField(max_length=4)
-
-
 
 class Question(models.Model):   
     id = models.IntegerField(primary_key=True)
@@ -92,7 +79,7 @@ class Candidate_marks(models.Model):
     marks = models.FloatField()
     remarks = models.TextField()
 
-class Remarks(models.Model):   
+class Candidate_round(models.Model):   
     NOT_NOTIFIED = 'NN'
     NOTIFIED = 'N'
     IN_WAITING_ROOM = 'WR'
@@ -107,7 +94,7 @@ class Remarks(models.Model):
         (COMPLETE, 'Complete'),
         (ABSENT, 'Absent'),    
     ]
-    Candidate_round = models.ForeignKey(Rounds, on_delete=CASCADE, related_name='id')
+    round_id = models.ForeignKey(Rounds, on_delete=CASCADE, related_name='id')
     applicant_id = models.ForeignKey(Applicant, on_delete=CASCADE, related_name='enrollment_no')
     remark = models.TextField()
     status = models.CharField(max_length=2, choices=DETAILS_CHOICES, default=NOT_NOTIFIED)

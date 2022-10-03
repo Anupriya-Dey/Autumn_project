@@ -1,7 +1,5 @@
-from dataclasses import fields
-from pyexpat import model
 from rest_framework import serializers
-from .models import Applicant, IMG_member, Interview_panel, Marks, Question, Recruitment_season, Remarks, Rounds, Section
+from .models import Applicant, IMG_member, Interview_panel, Candidate_marks, Question, Recruitment_season, Candidate_round, Rounds, Section
 
 class RecruitmentSeasonSerializer(serializers.ModelSerializer):
     class Meta:
@@ -54,25 +52,25 @@ class QuestionSerializer(serializers.ModelSerializer):
 
 class InterviewPanelSerializer(serializers.ModelSerializer):
     season_id = RecruitmentSeasonNameSerializer()
-    panelist = IMGMemberNameSerializer()
+    panelist = IMGMemberNameSerializer(many=True)
     class Meta:        
         model = Interview_panel
         fields = ['id', 'panel_name', 'panelist', 'room_no', 'status', 'season_id']
 
 class MarksSerializer(serializers.ModelSerializer):
-    round_id = RoundsSerializer()
+    # round_id = RoundsSerializer()
     applicant_id = ApplicantSerializer()
     question_id = QuestionSerializer()
     class Meta:
-        model = Marks
-        fields = ['id', 'round_id', 'applicant_id', 'checked', 'question_id', 'marks']
+        model = Candidate_marks
+        fields = ['id', 'applicant_id', 'checked', 'question_id', 'marks', 'remarks']
         
-class RemarksSerializer(serializers.ModelSerializer):
+class CandidateRoundSerializer(serializers.ModelSerializer):
     round_id = RoundsSerializer()
     applicant_id = ApplicantSerializer()
     class Meta:
-        model = Remarks
-        fields = ['id', 'round_id', 'applicant_id', 'remark', 'status', 'interview_panel']
+        model = Candidate_round
+        fields = ['id', 'round_id', 'applicant_id', 'remark', 'status', 'interview_panel', 'time_slot']
         
 
         
