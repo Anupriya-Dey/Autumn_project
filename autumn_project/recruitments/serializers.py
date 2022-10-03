@@ -26,7 +26,7 @@ class SectionNameSerializer(serializers.ModelSerializer):
     round_id = RoundsSerializer()
     class Meta:
         model = Section
-        fields = ['id', 'round_id', 'name']
+        fields = ['id', 'round_id', 'name', 'weightage']
 
 class ApplicantSerializer(serializers.ModelSerializer):
     class Meta:
@@ -57,7 +57,7 @@ class InterviewPanelSerializer(serializers.ModelSerializer):
         model = Interview_panel
         fields = ['id', 'panel_name', 'panelist', 'room_no', 'status', 'season_id']
 
-class MarksSerializer(serializers.ModelSerializer):
+class CandidateMarksSerializer(serializers.ModelSerializer):
     # round_id = RoundsSerializer()
     applicant_id = ApplicantSerializer()
     question_id = QuestionSerializer()
